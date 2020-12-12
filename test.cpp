@@ -1,10 +1,18 @@
 #include <iostream>
 #include <gml/gml.hpp>
+#include <gml/gml.h>
 
 int main(){
 
-  gmlVec3 v = {1, 2, 3};
-  printf("%f, %f, %f", GML_VEC3_TO_PARAMS(v));
+  gmlMat4 m1;
+  gmlVec4 vec = {3.f, 2.f, 4.f, 1.f};
+  gmlVec4 newVec;
 
-  return EXIT_SUCCESS;
+  gmlCreateMat4(&m1, GML_COLUMN_MAJOR);
+  gmlIdentityMat4(&m1);
+
+  newVec = gmlMultiplyMat4Vec4(&m1, &vec);
+  printf("(%f, %f, %f, %f)\n", GML_VEC4_TO_PARAMS(newVec));
+
+  return 0;
 }
