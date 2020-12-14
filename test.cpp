@@ -4,15 +4,10 @@
 
 int main(){
 
-  gmlMat4 m1;
-  gmlVec4 vec = {3.f, 2.f, 4.f, 1.f};
-  gmlVec4 newVec;
+  gml::mat4 m(GML_COLUMN_MAJOR);
+  m.make_identity_matrix();
 
-  gmlCreateMat4(&m1, GML_COLUMN_MAJOR);
-  gmlIdentityMat4(&m1);
-
-  newVec = gmlMultiplyMat4Vec4(&m1, &vec);
-  printf("(%f, %f, %f, %f)\n", GML_VEC4_TO_PARAMS(newVec));
+  printf("%f\n", m[0][0]);
 
   return 0;
 }

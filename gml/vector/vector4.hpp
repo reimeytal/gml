@@ -39,30 +39,45 @@ namespace gml{
     }
 
     //Negate vector
-    vec4 operator- (){
+    vec4 operator-(){
       return vec4(gmlVec4Negate(this->to_gmlVec4()));
     }
 
     //Mathematical operations on other 3 component vectors
-    vec4 operator+ (vec4& otherVec){
+    vec4 operator+(vec4& otherVec){
       return vec4(gmlVec4Add(this->to_gmlVec4(), otherVec.to_gmlVec4()));
     }
 
     //Mathematical operations on scalars
-    vec4 operator+ (float& f){
+    vec4 operator+(float& f){
       return vec4(gmlVec4Addf(this->to_gmlVec4(), f));
     }
 
-    vec4 operator- (float& f){
+    vec4 operator-(float& f){
       return vec4(gmlVec4Subractf(this->to_gmlVec4(), f));
     }
 
-    vec4 operator* (float& f){
+    vec4 operator*(float& f){
       return vec4(gmlVec4Multiplyf(this->to_gmlVec4(), f));
     }
 
-    vec4 operator/ (float& f){
+    vec4 operator/(float& f){
       return vec4(gmlVec4Dividef(this->to_gmlVec4(), f));
+    }
+    //Accessing elements using indexes
+    float operator[](uint8_t j){
+      switch(j){
+        case 0:
+          return x;
+        case 1:
+          return y;
+        case 2:
+          return z;
+        case 3:
+          return w;
+        default:
+          return 0.0f;
+      }
     }
   };
 
