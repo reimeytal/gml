@@ -64,21 +64,6 @@ namespace gml{
     vec4 operator/(float& f){
       return vec4(gmlVec4Dividef(this->to_gmlVec4(), f));
     }
-    //Accessing elements using indexes
-    float operator[](uint8_t j){
-      switch(j){
-        case 0:
-          return x;
-        case 1:
-          return y;
-        case 2:
-          return z;
-        case 3:
-          return w;
-        default:
-          return 0.0f;
-      }
-    }
   };
 
 }

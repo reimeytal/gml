@@ -1,8 +1,8 @@
 #ifndef GML_H
 #define GML_H
 
-#define GML_VERSION "0.0.1"
-//Version 0.0.1
+#define GML_VERSION "0.5.0"
+//Version 0.5.0
 
 #include <gml/vector/vector3.h>
 #include <gml/vector/vector4.h>

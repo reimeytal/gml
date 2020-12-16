@@ -7,7 +7,9 @@ int main(){
   gml::mat4 m(GML_COLUMN_MAJOR);
   m.make_identity_matrix();
 
-  printf("%f\n", m[0][0]);
+  m(0, 0) = -1.f;
+
+  m.print();
 
   return 0;
 }

@@ -4,9 +4,14 @@
 #define GML_ROW_MAJOR    0
 #define GML_COLUMN_MAJOR 1
 
+#define GML_X 1
+#define GML_Y 2
+#define GML_Z 4
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #include <gml/vector/vector4.h>
 
@@ -126,10 +131,57 @@ gmlVec4 gmlMultiplyMat4Vec4(gmlMat4* mat, gmlVec4* vec){
 }
 
 void gmlPrintMat4(gmlMat4* mat){
+  gmlVec4 toPrint;
   for(uint8_t i=0;i<4;i++){
-    printf("| %10f %10f %10f %10f |\n", GML_VEC4_TO_PARAMS(gmlMat4GetRow(mat, i)));
+    toPrint = gmlMat4GetRow(mat, i);
+    printf("| %10f %10f %10f %10f |\n", GML_VEC4_TO_PARAMS(toPrint));
   }
   fflush(stdout);
+}
+
+void gmlTranslateMat4(gmlMat4* mat, gmlVec3 vec){
+  gmlMat4SetElem(mat, 0, 3, gmlMat4GetElem(mat, 0, 3) + vec.x);
+  gmlMat4SetElem(mat, 1, 3, gmlMat4GetElem(mat, 1, 3) + vec.y);
+  gmlMat4SetElem(mat, 2, 3, gmlMat4GetElem(mat, 2, 3) + vec.z);
+}
+
+void gmlScaleMat4(gmlMat4* mat, gmlVec3 vec){
+  gmlMat4SetElem(mat, 0, 0, gmlMat4GetElem(mat, 0, 0) * vec.x);
+  gmlMat4SetElem(mat, 1, 1, gmlMat4GetElem(mat, 1, 1) * vec.y);
+  gmlMat4SetElem(mat, 2, 2, gmlMat4GetElem(mat, 2, 2) * vec.z);
+}
+
+void gmlRotateMat4(gmlMat4* mat, float theta, uint8_t axis){
+  gmlMat4 rotationMat, result;
+
+  gmlCreateMat4(&result, mat->major);
+
+  gmlCreateMat4(&rotationMat, GML_COLUMN_MAJOR);
+  gmlIdentityMat4(&rotationMat);
+
+  if((axis & 0b1) == 1){ //GML_X
+    gmlMat4SetElem(&rotationMat, 1, 1,    cos(theta));
+    gmlMat4SetElem(&rotationMat, 1, 2, -1*sin(theta));
+    gmlMat4SetElem(&rotationMat, 2, 1,    sin(theta));
+    gmlMat4SetElem(&rotationMat, 2, 2,    cos(theta));
+  }
+
+  if((axis & 0b10) == 2){ //GML_Y
+    gmlMat4SetElem(&rotationMat, 0, 0,    cos(theta));
+    gmlMat4SetElem(&rotationMat, 0, 2,    sin(theta));
+    gmlMat4SetElem(&rotationMat, 2, 0, -1*sin(theta));
+    gmlMat4SetElem(&rotationMat, 2, 2,    cos(theta));
+  }
+
+  if((axis & 0b100) == 4){ //GML_Z
+    gmlMat4SetElem(&rotationMat, 0, 0,    cos(theta));
+    gmlMat4SetElem(&rotationMat, 1, 0,    sin(theta));
+    gmlMat4SetElem(&rotationMat, 0, 1, -1*sin(theta));
+    gmlMat4SetElem(&rotationMat, 1, 1,    cos(theta));
+  }
+
+  gmlMultiplyMat4(mat, &rotationMat, &result);
+  *mat = result;
 }
 
 #endif //GML_MATRIX4_H
