@@ -159,21 +159,21 @@ void gmlRotateMat4(gmlMat4* mat, float theta, uint8_t axis){
   gmlCreateMat4(&rotationMat, GML_COLUMN_MAJOR);
   gmlIdentityMat4(&rotationMat);
 
-  if((axis & 0b1) == 1){ //GML_X
+  if((axis & 0b1) == GML_X){
     gmlMat4SetElem(&rotationMat, 1, 1,    cos(theta));
     gmlMat4SetElem(&rotationMat, 1, 2, -1*sin(theta));
     gmlMat4SetElem(&rotationMat, 2, 1,    sin(theta));
     gmlMat4SetElem(&rotationMat, 2, 2,    cos(theta));
   }
 
-  if((axis & 0b10) == 2){ //GML_Y
+  if((axis & 0b10) == GML_Y){
     gmlMat4SetElem(&rotationMat, 0, 0,    cos(theta));
     gmlMat4SetElem(&rotationMat, 0, 2,    sin(theta));
     gmlMat4SetElem(&rotationMat, 2, 0, -1*sin(theta));
     gmlMat4SetElem(&rotationMat, 2, 2,    cos(theta));
   }
 
-  if((axis & 0b100) == 4){ //GML_Z
+  if((axis & 0b100) == GML_Z){
     gmlMat4SetElem(&rotationMat, 0, 0,    cos(theta));
     gmlMat4SetElem(&rotationMat, 1, 0,    sin(theta));
     gmlMat4SetElem(&rotationMat, 0, 1, -1*sin(theta));

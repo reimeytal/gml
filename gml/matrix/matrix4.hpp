@@ -42,7 +42,7 @@ namespace gml{
       gmlScaleMat4((gmlMat4*)this, *((gmlVec3*)&vec));
     }
 
-    inline void rotate(float& theta, uint8_t axis){
+    inline void rotate(float theta, uint8_t axis){
       gmlRotateMat4((gmlMat4*)this, theta, axis);
     }
 
