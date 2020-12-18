@@ -9,17 +9,17 @@ namespace gml{
 #endif //__cplusplus
 
 #ifdef __cplusplus
-float pythagoras(float x, float y){
+static float pythagoras(float x, float y){
 #else
-float gmlPythagoras(float x, float y){
+static float gmlPythagoras(float x, float y){
 #endif //__cplusplus
   return sqrt(x*x + y*y);
 }
 
 #ifdef __cplusplus
-float reverse_pythagoras(float hypotenuse, float leg){
+static float reverse_pythagoras(float hypotenuse, float leg){
 #else
-float gmlReversePythagoras(float hypotenuse, float leg){
+static float gmlReversePythagoras(float hypotenuse, float leg){
 #endif //__cplusplus
   return sqrt(hypotenuse*hypotenuse - leg*leg);
 }

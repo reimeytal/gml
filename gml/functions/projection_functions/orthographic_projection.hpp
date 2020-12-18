@@ -7,7 +7,7 @@
 #include <gml/functions/projection_functions/orthographic_projection.h>
 
 namespace gml{
-  mat4 orthographic_projection(float left, float right, float bottom, float top, float near, float far, uint8_t return_major=GML_COLUMN_MAJOR){
+  static mat4 orthographic_projection(float left, float right, float bottom, float top, float near, float far, uint8_t return_major=GML_COLUMN_MAJOR){
     mat4 ret(return_major);
     ret.make_identity_matrix();
 

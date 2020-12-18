@@ -3,7 +3,7 @@
 
 #include <gml/matrix/matrix4.h>
 
-void gmlOrthographicProjection(gmlMat4* mat, float left, float right, float bottom, float top, float near, float far){
+static void gmlOrthographicProjection(gmlMat4* mat, float left, float right, float bottom, float top, float near, float far){
   gmlMat4SetElem(mat, 0, 0,  2/(right-left));
   gmlMat4SetElem(mat, 1, 1,  2/(top-bottom));
   gmlMat4SetElem(mat, 2, 2, -2/(far-near));
