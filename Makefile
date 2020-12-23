@@ -6,4 +6,4 @@ COMPILER = g++
 EXECUTABLE_NAME = test.exe
 
 main:
-	${COMPILER} -o ${EXECUTABLE_NAME} test.cpp -I.
+	${COMPILER} -o ${EXECUTABLE_NAME} test.cpp -I./include/
