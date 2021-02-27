@@ -15,6 +15,7 @@
 #include <gml/vector/vector3.h>
 #include <gml/vector/vector4.h>
 #include <gml/functions/projection_functions/orthographic_projection.h>
+#include <gml/functions/projection_functions/perspective_projection.h>
 
 #include <gml/matrix/matrix4.h>
 #endif //__cplusplus

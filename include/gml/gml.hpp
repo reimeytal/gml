@@ -11,6 +11,7 @@
 #include <gml/vector/vector4.hpp>
 
 #include <gml/functions/projection_functions/orthographic_projection.hpp>
+#include <gml/functions/projection_functions/perspective_projection.hpp>
 
 #include <gml/matrix/matrix4.hpp>
 #endif //GML_HPP
