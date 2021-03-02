@@ -1,9 +1,6 @@
 #ifndef GML_MATRIX4_H
 #define GML_MATRIX4_H
 
-#define GML_ROW_MAJOR    0
-#define GML_COLUMN_MAJOR 1
-
 #define GML_X 1
 #define GML_Y 2
 #define GML_Z 4
@@ -17,42 +14,24 @@
 
 typedef struct{
   float data[16];
-  uint8_t major;
 } gmlMat4;
 
-static void gmlCreateMat4(gmlMat4* mat, uint8_t major){
-  if(major > 1){
-    return;
-  }
-  *mat = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, major};
+static void gmlCreateMat4(gmlMat4* mat){
+  *mat = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 }
 
 static float gmlMat4GetElem(gmlMat4* mat, uint8_t i, uint8_t j){ //row, column
   if(j >= 4 || i >= 4){
     return 0.0f;
   }
-  switch(mat->major){
-    case GML_ROW_MAJOR:
-      return mat->data[i * 4 + j];
-    case GML_COLUMN_MAJOR:
-      return mat->data[i + j*4];
-    default:
-      return 0.0f;
-  }
+  return mat->data[i + j*4];
 }
 
 static float* gmlMat4GetElemPointer(gmlMat4* mat, uint8_t i, uint8_t j){ //row, column
   if(j >= 4 || i >= 4){
     return NULL;
   }
-  switch(mat->major){
-    case GML_ROW_MAJOR:
-      return &mat->data[i * 4 + j];
-    case GML_COLUMN_MAJOR:
-      return &mat->data[i + j * 4];
-    default:
-      return NULL;
-  }
+  return &mat->data[i + j * 4];
 }
 
 static void gmlMat4SetElem(gmlMat4* mat, uint8_t i, uint8_t j, float value){ //row, column, value
@@ -71,38 +50,6 @@ static void gmlIdentityMat4(gmlMat4* mat){
   for(uint8_t i=0;i<4;i++){
     gmlMat4SetElem(mat, i, i, 1.0f);
   }
-}
-
-static void gmlMat4RowToColumn(gmlMat4* mat){
-  if(mat->major == GML_COLUMN_MAJOR){
-    return;
-  }
-
-  gmlMat4 ret;
-  gmlCreateMat4(&ret, GML_COLUMN_MAJOR);
-
-  for(uint8_t i=0;i<4;i++){
-    for(uint8_t j=0;j<4;j++){
-      gmlMat4SetElem(&ret, i, j, gmlMat4GetElem(mat, i, j));
-    }
-  }
-  *mat = ret;
-}
-
-static void gmlMat4ColumnToRow(gmlMat4* mat){
-  if(mat->major == GML_ROW_MAJOR){
-    return;
-  }
-
-  gmlMat4 ret;
-  gmlCreateMat4(&ret, GML_ROW_MAJOR);
-
-  for(uint8_t i=0;i<4;i++){
-    for(uint8_t j=0;j<4;j++){
-      gmlMat4SetElem(&ret, i, j, gmlMat4GetElem(mat, i, j));
-    }
-  }
-  *mat = ret;
 }
 
 static void gmlAddMat4(gmlMat4* mat1, gmlMat4* mat2, gmlMat4* result){
@@ -154,9 +101,9 @@ static void gmlScaleMat4(gmlMat4* mat, gmlVec3 vec){
 static void gmlRotateMat4(gmlMat4* mat, float theta, uint8_t axis){
   gmlMat4 rotationMat, result;
 
-  gmlCreateMat4(&result, mat->major);
+  gmlCreateMat4(&result);
 
-  gmlCreateMat4(&rotationMat, GML_COLUMN_MAJOR);
+  gmlCreateMat4(&rotationMat);
   gmlIdentityMat4(&rotationMat);
 
   if((axis & 0b1) == GML_X){

@@ -12,13 +12,8 @@ namespace gml{
   class mat4{
   protected:
     float data[16];
-    uint8_t major;
   public:
-    mat4() = delete;
-
-    mat4(uint8_t major)
-      :major(major)
-    {
+    mat4(){
       memset(data, 0, sizeof(float) * 16);
     }
 
@@ -51,13 +46,13 @@ namespace gml{
     }
 
     mat4 operator+(mat4 otherMat){
-      mat4 ret(this->major);
+      mat4 ret = mat4();
       gmlAddMat4((gmlMat4*)this, (gmlMat4*)&otherMat, (gmlMat4*)&ret);
       return ret;
     }
 
     mat4 operator*(mat4 otherMat){
-      mat4 ret(this->major);
+      mat4 ret = mat4();
       gmlMultiplyMat4((gmlMat4*)this, (gmlMat4*)&otherMat, (gmlMat4*)&ret);
       return ret;
     }

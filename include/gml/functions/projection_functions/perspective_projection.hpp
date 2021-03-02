@@ -6,8 +6,8 @@
 
 namespace gml{
 
-  static mat4 perspective_projection(float left, float right, float bottom, float top, float near, float far, uint8_t return_major=GML_COLUMN_MAJOR){
-    mat4 ret(return_major);
+  static mat4 perspective_projection(float left, float right, float bottom, float top, float near, float far){
+    mat4 ret = mat4();
     ret.make_identity_matrix();
 
     gmlPerspectiveProjection((gmlMat4*)&ret, left, right, bottom, top, near, far);
