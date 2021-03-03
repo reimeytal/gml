@@ -6,11 +6,15 @@
 
 namespace gml{
 
-  static mat4 perspective_projection(float left, float right, float bottom, float top, float near, float far){
+  static void perspective(float fov, float aspect_ratio, float* left, float* right, float* bottom, float* top, float near){
+    gmlPerspective(fov, aspect_ratio, left, right, bottom, top, near);
+  }
+
+  static mat4 frustum(float left, float right, float bottom, float top, float near, float far){
     mat4 ret = mat4();
     ret.make_identity_matrix();
 
-    gmlPerspectiveProjection((gmlMat4*)&ret, left, right, bottom, top, near, far);
+    gmlFrustum((gmlMat4*)&ret, left, right, bottom, top, near, far);
 
     return ret;
   }

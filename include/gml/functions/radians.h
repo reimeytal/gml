@@ -6,22 +6,22 @@
 #ifdef __cplusplus
 namespace gml {
 
-static float to_radians(float degrees){
-#else
+  static float to_radians(float degrees){
+    return degrees/57.2958f;
+  }
+
+  static float to_degrees(float radians){
+    return radians*57.2958f;
+  }
+} //namespace gml
+#endif
+
 static float gmlToRadians(float degrees){
-#endif //__cplusplus
   return degrees/57.2958f;
 }
 
-#ifdef __cplusplus
-static float to_degrees(float radians){
-#else
 static float gmlToDegrees(float radians){
-#endif //__cplusplus
   return radians*57.2958f;
 }
 
-#ifdef __cplusplus
-} //namespace gml
-#endif //__cplusplus
 #endif //GML_RADIANS_HPP
